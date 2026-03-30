@@ -1,3 +1,4 @@
+# this version show all the message info from asterisk
 import os
 import asyncio
 from panoramisk import Manager
@@ -27,41 +28,14 @@ USER = os.getenv('USER')
 SECRET = os.getenv('SECRET')
 
 #########  This shows all messages and with the all info ##############
-#async def handle_events(manager, message):
-#    Print EVERYTHING so we can see the raw data
-#    if message.get('Event') == 'Newstate' and message.get('ChannelStateDesc') == 'Ringing':
-#        print("--- RAW EVENT START ---")
-#        for key, value in message.items():
-#            print(f"{key}: {value}")
-#        print("--- RAW EVENT END ---\n")
-############# This shows all messages and with the all info ##############
-import time
-
-# Simple memory: { 'linkedid': timestamp }
-seen_calls = {}
 async def handle_events(manager, message):
+    #Print EVERYTHING so we can see the raw data
     if message.get('Event') == 'Newstate' and message.get('ChannelStateDesc') == 'Ringing':
-        
-        lid = message.get('Linkedid')
-        # Get the number, default to None if missing
-        phone = message.get('ConnectedLineNum') 
-        now = time.time()
-
-        # 1. Basic Validation: Is there actually a number?
-        if not phone or phone == "<unknown>":
-            print(f"DEBUG: Call received on {lid} but no Caller ID found.")
-            return
-
-        # 2. Deduplication: Have we handled this Linkedid in the last 30s?
-        if lid in seen_calls:
-            if (now - seen_calls[lid]) < 30:
-                return 
-        
-        # 3. Success: Record and Trigger
-        seen_calls[lid] = now
-        print(f"🚀 TRIGGERING ODOO FOR: {phone}")
-        
-        # POST to Odoo here...
+        print("--- RAW EVENT START ---")
+        for key, value in message.items():
+            print(f"{key}: {value}")
+        print("--- RAW EVENT END ---\n")
+############# This shows all messages and with the all info ##############
 async def main():
     manager = Manager(
         host=ASTERISK_HOST,
