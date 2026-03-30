@@ -27,7 +27,7 @@ We will use the panoramisk library because it handles the messy TCP socket logic
 Bash
 pip install panoramisk
 2. Create the script asterisk_monitor.py:
-Python
+...Python
 import asyncio
 from panoramisk import Manager
 # Configuration
@@ -105,7 +105,7 @@ if __name__ == "__main__":
         asyncio.run(main())
     except KeyboardInterrupt:
         print("\nStopping listener...")
-
+'''
 Step 3: Run the Test
 1. Run the script on your Proxmox terminal:
 Bash
