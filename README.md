@@ -16,13 +16,14 @@ Install Panoramisk library: pip install panoramisk
 
 ⚙️ Configuration
 Create a .env file in the same directory as the script:
-
+```ini
 ASTERISK_HOST=127.0.0.1
 ASTERISK_PORT=5038
 USER=your_ami_username
 SECRET=your_ami_password
-
+```
 Edit `/etc/asterisk/manager.conf` and add this:
+```ini
 
 [general]
 enabled = yes
@@ -35,7 +36,7 @@ deny = 0.0.0.0/0.0.0.0
 permit = 0.0.0.0/0.0.0.0 ; In production, change this to your Proxmox/Python IP for security
 read = call,reporting,originate
 write = system,call,all
-
+```
 
 Reload with: `asterisk -rx "manager reload"`
 Note: Ensure your AMI user in Asterisk has read=call permissions to see Newstate events.
