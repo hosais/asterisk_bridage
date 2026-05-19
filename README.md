@@ -51,5 +51,5 @@ Install the library: `pip install panoramisk`
 ### Run the Test
 Run the script on your Proxmox/LXC terminal:
 ```bash
-python3 asterisk_monitor.py
+python3 asterisk_bridage.py
 ```
